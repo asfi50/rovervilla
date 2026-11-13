@@ -1,0 +1,449 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #0d0b26;
+  --color-ink-soft: #5d5a78;
+  --color-brand: #1238ff;
+  --color-brand-deep: #0a26d6;
+  --color-brand-bright: #4a68ff;
+  --color-brand-soft: #e7ebff;
+  --color-mars: #ff5a1f;
+  --color-mist: #f7f7fb;
+  --color-line: #e8e6f2;
+  --color-night: #0c0a22;
+  /* The video pages: a deep blue-black that lets the brand blue and the show's warm art glow. */
+  --color-screen: #04060f;
+  --color-brand-glow: #8c9eff;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-hand: var(--font-caveat), cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+@media (max-width: 809.98px) {
+  html { font-size: 93.75%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Bold Jost display type used for every headline (same family as accrely-landing). */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.rise {
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Waveform bars breathe while a signal is "live". */
+.wave-live rect {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wave 1.6s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.45); }
+}
+
+.planet {
+  background-size: 200% 100%;
+  animation: planet-spin 60s linear infinite;
+}
+@keyframes planet-spin {
+  to { background-position: -200% 0; }
+}
+
+.ticker {
+  animation: ticker 38s linear infinite;
+}
+
+@keyframes ticker {
+  to { transform: translateX(-50%); }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  from { transform: scale(0.4); opacity: 0.7; }
+  to { transform: scale(2.6); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .wave-live rect, .ticker, .pulse-ring, .planet { animation: none; }
+}
+
+/* Last-signal art (app/components/profile/last-signal.tsx): one loop per way a machine was lost. */
+.ls * { transform-box: fill-box; transform-origin: center; }
+.ls-fall { animation: ls-fall 3.2s ease-in infinite; stroke-dashoffset: 0; }
+@keyframes ls-fall { 0% { opacity: 0; } 15% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
+.ls-flash { opacity: 0; animation: ls-flash 3.2s ease-out infinite; }
+.ls-d2 { animation-delay: 0.25s; }
+@keyframes ls-flash { 0%, 62% { opacity: 0; transform: scale(0.2); } 66% { opacity: 1; } 100% { opacity: 0; transform: scale(3.2); } }
+.ls-sun-dim { animation: ls-sun-dim 6s ease-in-out infinite; }
+@keyframes ls-sun-dim { 0% { opacity: 0.9; } 80%, 100% { opacity: 0.08; } }
+.ls-dust { animation: ls-dust 6s linear infinite; opacity: 0.55; }
+@keyframes ls-dust { from { transform: translateX(-40px); } to { transform: translateX(40px); } }
+.ls-sun-set { animation: ls-sun-set 7s ease-in infinite; }
+@keyframes ls-sun-set { 0% { transform: translateY(0); opacity: 0.9; } 85%, 100% { transform: translateY(26px); opacity: 0; } }
+.ls-frost { opacity: 0; animation: ls-frost 7s ease-out infinite; }
+@keyframes ls-frost { 0% { opacity: 0; } 40%, 100% { opacity: 0.85; } }
+.ls-cell { animation: ls-cell 4.8s steps(1) infinite; }
+@keyframes ls-cell { 0% { opacity: 1; } 55%, 100% { opacity: 0.08; } }
+.ls-ring { animation: ls-ring 2.4s ease-out infinite; }
+@keyframes ls-ring { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+.ls-fading { animation-name: ls-ring-fade; animation-duration: 5s; }
+@keyframes ls-ring-fade { 0% { opacity: 0; } 15% { opacity: 0.9; } 60%, 100% { opacity: 0; } }
+.ls-cut { opacity: 0; animation: ls-cut 2.4s ease-out infinite; }
+@keyframes ls-cut { 0%, 45% { opacity: 0; } 55%, 100% { opacity: 1; } }
+.ls-q { animation: ls-ring 3.2s ease-in-out infinite; }
+.ls-star { animation: ls-ring 3s ease-in-out infinite; }
+.ls-rotor { animation: ls-rotor 3s ease-in-out infinite; transform-origin: 50% 50%; }
+@keyframes ls-rotor { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(4deg); } }
+.ls-chip { animation: ls-chip 3s ease-in infinite; }
+@keyframes ls-chip { 0%, 40% { transform: none; opacity: 1; } 100% { transform: translate(24px, 40px) rotate(60deg); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ls * { animation: none !important; opacity: 0.85; }
+}
+
+/* Cinematic story (app/components/story/cinematic-story.tsx). */
+.film-dust { animation: film-dust 5s linear infinite; }
+@keyframes film-dust { from { transform: translate(-60px, 10px); opacity: 0; } 20% { opacity: 0.8; } to { transform: translate(80px, -20px); opacity: 0; } }
+.film-ring { animation: film-ring 3.6s ease-out infinite; opacity: 0; }
+@keyframes film-ring { from { transform: scale(0.3); opacity: 0.9; } to { transform: scale(9); opacity: 0; } }
+.film-hint { animation: film-hint 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes film-hint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .film-dust, .film-ring, .film-hint { animation: none; }
+}
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Leaves room for the mobile tab bar so it never covers content. */
+.pb-tabbar {
+  padding-bottom: calc(84px + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 1024px) {
+  .pb-tabbar { padding-bottom: 0; }
+}
+
+input[type="range"].dual {
+  pointer-events: none;
+  appearance: none;
+  background: transparent;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+}
+
+input[type="range"].dual::-webkit-slider-thumb {
+  pointer-events: auto;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-brand);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(18,56,255, 0.4);
+  cursor: grab;
+}
+
+input[type="range"].dual::-moz-range-thumb {
+  pointer-events: auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-brand);
+  border: 3px solid #fff;
+  cursor: grab;
+}
+
+/* Scroll reveal (see RevealManager). Only hides content once the observer is running. */
+.reveal-ready [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.reveal-ready [data-reveal] {
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Touchdown (the landing game). */
+@keyframes tls-fade-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.tls-fade-in { animation: tls-fade-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes tls-callout { 0% { opacity: 0; transform: translateY(8px); } 12% { opacity: 1; transform: none; } 75% { opacity: 1; } 100% { opacity: 0; } }
+.tls-callout { animation: tls-callout 2.4s ease-out forwards; }
+@keyframes tls-star-pop { 0% { transform: scale(0.2) rotate(-40deg); opacity: 0; } 60% { transform: scale(1.35); opacity: 1; } 100% { transform: none; opacity: 1; } }
+.tls-star-pop { animation: tls-star-pop 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+@keyframes tls-card-in { from { transform: translateY(-12px) scale(0.97); } to { transform: none; } }
+@keyframes tls-card-life { 0% { opacity: 0; } 5%, 92% { opacity: 1; } 100% { opacity: 0; } }
+.tls-card { animation: tls-card-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both, tls-card-life 9s linear forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .tls-fade-in, .tls-star-pop { animation-duration: 0.01s; }
+  .tls-card { animation: tls-card-life 9s linear forwards; }
+}
+
+/* ── Video player feedback ─────────────────────────────────────────────────── */
+@keyframes rv-flash { 0% { opacity: 0; scale: 0.6; } 25% { opacity: 1; scale: 1; } 70% { opacity: 1; } 100% { opacity: 0; scale: 1.15; } }
+.rv-flash { animation: rv-flash 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+@keyframes rv-pop { from { opacity: 0; transform: translateY(8px) scale(0.94); } to { opacity: 1; transform: none; } }
+.rv-pop { animation: rv-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both; }
+@keyframes rv-hint { 0% { opacity: 0; transform: translateY(24px); } 15%, 70% { opacity: 1; transform: translateY(0); } 40% { transform: translateY(-10px); } 100% { opacity: 0; transform: translateY(-30px); } }
+.rv-hint { animation: rv-hint 3.6s ease-in-out forwards; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6); }
+@media (prefers-reduced-motion: reduce) {
+  .rv-flash, .rv-pop, .rv-hint { animation-duration: 0.01ms; }
+}
+
+/* ── Liquid glass (bottom nav, reader bar) ─────────────────────────────────────
+ * Clear glass that bends the page behind it: a strong blur with extra saturation,
+ * a bright specular edge on top, a softer rim below, and a sheen across the surface.
+ * The selected tab sits in a lighter "lens" that wobbles a little as it slides. */
+.glass {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.26));
+  -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(1.04);
+  backdrop-filter: blur(20px) saturate(200%) brightness(1.04);
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.6),
+    inset 0 -14px 22px -14px rgba(255, 255, 255, 0.55),
+    0 14px 34px -12px rgba(13, 11, 38, 0.3),
+    0 2px 6px rgba(13, 11, 38, 0.07);
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 18% -10%, rgba(255, 255, 255, 0.7), transparent 50%),
+    radial-gradient(70% 70% at 95% 130%, rgba(255, 255, 255, 0.35), transparent 60%);
+  opacity: 0.7;
+}
+.glass-dark {
+  background: linear-gradient(180deg, rgba(48, 54, 86, 0.42), rgba(8, 10, 24, 0.38));
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.18),
+    inset 0 -14px 22px -14px rgba(140, 158, 255, 0.25),
+    0 16px 36px -12px rgba(0, 0, 0, 0.75);
+}
+.glass-dark::before {
+  background:
+    radial-gradient(120% 90% at 18% -10%, rgba(255, 255, 255, 0.22), transparent 50%),
+    radial-gradient(70% 70% at 95% 130%, rgba(140, 158, 255, 0.18), transparent 60%);
+}
+.glass-lens {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.6));
+  box-shadow:
+    inset 0 1px 1px #fff,
+    inset 0 -1px 2px rgba(13, 11, 38, 0.06),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.9),
+    0 6px 16px -6px rgba(13, 11, 38, 0.28);
+}
+.glass-dark .glass-lens {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.12));
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3),
+    0 6px 16px -6px rgba(0, 0, 0, 0.6);
+}
+/* A tinted glass button for the main action (the reader's Next). */
+.glass-tint {
+  background: linear-gradient(180deg, rgba(74, 104, 255, 0.95), rgba(18, 56, 255, 0.92));
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.55),
+    inset 0 -2px 4px rgba(10, 38, 214, 0.5),
+    0 8px 18px -6px rgba(18, 56, 255, 0.6);
+}
+.glass-jelly {
+  animation: glass-jelly 0.55s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+@keyframes glass-jelly {
+  0% { transform: scale(1, 1); }
+  30% { transform: scale(1.18, 0.86); }
+  60% { transform: scale(0.95, 1.06); }
+  100% { transform: scale(1, 1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glass-jelly { animation: none; }
+}
+
+/* ── Play: the playful layer (home Books and Games, stickers, little motions) ──────── */
+
+/* A starry sky in two layers of tiny dots that twinkle out of step. Put it on an
+ * absolutely positioned, aria-hidden div inside a dark block. */
+.sky-stars,
+.sky-stars::after {
+  background-image:
+    radial-gradient(1.4px 1.4px at 18px 26px, #fff 60%, transparent 100%),
+    radial-gradient(1px 1px at 96px 140px, rgba(255, 255, 255, 0.85) 60%, transparent 100%),
+    radial-gradient(1.8px 1.8px at 170px 60px, rgba(255, 255, 255, 0.95) 60%, transparent 100%),
+    radial-gradient(1px 1px at 210px 190px, rgba(200, 210, 255, 0.9) 60%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 60px 210px, rgba(255, 255, 255, 0.7) 60%, transparent 100%);
+  background-size: 240px 240px;
+}
+.sky-stars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 370px 370px;
+  background-position: 120px 80px;
+  animation: twinkle 4.5s ease-in-out infinite alternate;
+}
+.sky-stars {
+  animation: twinkle 6s ease-in-out infinite alternate-reverse;
+}
+@keyframes twinkle {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+
+/* In the components layer, so utilities like max-sm:hidden still win. */
+@layer components {
+/* A little sticker: a rotated pill that straightens up when you point at it. */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.5em 0.95em 0.45em;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+  box-shadow: 0 2px 0 rgba(13, 11, 38, 0.14), 0 8px 18px -8px rgba(13, 11, 38, 0.35);
+  transition: transform 0.4s cubic-bezier(0.34, 1.6, 0.5, 1);
+}
+.sticker:hover { transform: rotate(2deg) scale(1.06); }
+}
+
+/* Gentle floating, for things that should feel alive. */
+.bob { animation: bob 5s ease-in-out infinite; }
+.bob-slow { animation: bob 7s ease-in-out infinite; }
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+/* A happy wiggle, used on hover by game icons and the like. */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0) scale(1); }
+  20% { transform: rotate(-9deg) scale(1.08); }
+  45% { transform: rotate(7deg) scale(1.1); }
+  70% { transform: rotate(-4deg) scale(1.06); }
+}
+.wiggle { animation: wiggle 0.7s cubic-bezier(0.3, 1.4, 0.5, 1); }
+
+@layer components {
+/* A comic speech bubble with a tail. Set --tail-x to move the tail along the bottom edge. */
+.bubble {
+  position: relative;
+  border-radius: 22px;
+  background: #fff;
+  color: var(--color-ink);
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.45);
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -11px;
+  left: var(--tail-x, 28px);
+  width: 22px;
+  height: 14px;
+  background: inherit;
+  clip-path: polygon(0 0, 100% 0, 15% 100%);
+}
+}
+
+/* Confetti for a finished chapter (app/components/confetti.tsx). */
+.confetti-bit {
+  position: absolute;
+  top: 0;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  animation: confetti-fall var(--dur, 1.8s) cubic-bezier(0.2, 0.6, 0.4, 1) var(--delay, 0s) both;
+}
+@keyframes confetti-fall {
+  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: translate(var(--dx, 0px), var(--dy, 520px)) rotate(var(--spin, 540deg)); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky-stars, .sky-stars::after, .bob, .bob-slow, .wiggle { animation: none; }
+  .confetti-bit { display: none; }
+}
+
+/* The footer rover (app/components/rover-drive.tsx). */
+.rover-drive { left: -70px; animation: rover-drive 34s linear infinite; }
+@keyframes rover-drive { to { left: calc(100% + 70px); } }
+.rover-body { animation: rover-bump 0.8s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes rover-bump { 50% { transform: translateY(-1px) rotate(-1.2deg); } }
+.rover-wheel { transform-box: fill-box; transform-origin: center; animation: rover-wheel 1.3s linear infinite; }
+@keyframes rover-wheel { to { transform: rotate(360deg); } }
+
+/* The back-to-top rocket (app/components/rocket-top.tsx). */
+.rocket-launch { animation: rocket-launch 1s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
+@keyframes rocket-launch {
+  0% { transform: translateY(0); }
+  15% { transform: translateY(3px) rotate(-3deg); }
+  25% { transform: translateY(2px) rotate(3deg); }
+  100% { transform: translateY(-110vh); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rover-drive { animation: none; left: 6%; }
+  .rover-body, .rover-wheel, .rocket-launch { animation: none; }
+}
+
+/* A soft fade on the right edge of a sideways chip row, so it reads as "more this way". */
+.edge-fade {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 44px), transparent);
+}

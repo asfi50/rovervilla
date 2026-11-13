@@ -1,0 +1,43 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+
+# env files (holds the OpenRouter key)
+.env*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# asset generation run logs
+scripts/generate.out
+scripts/raw/
+
+# OpenNext / wrangler
+.open-next
+.wrangler
+.dev.vars*
+
+# HyperFrames film project: local tools and renders
+film/.venv/
+film/node_modules/
+film/renders/
+film/**/*.mp4
+film/**/*.wav
+film/
+# Local agent state
+.claude/
